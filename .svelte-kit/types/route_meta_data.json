@@ -1,0 +1,13 @@
+{
+	"/": [],
+	"/api/daily-sales": [
+		"src/routes/api/daily-sales/+server.js"
+	],
+	"/api/lubricant-products": [
+		"src/routes/api/lubricant-products/+server.js"
+	],
+	"/daily sales": [],
+	"/daily-sales": [],
+	"/lubricant-products": [],
+	"/shadcn-demo": []
+}

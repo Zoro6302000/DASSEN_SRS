@@ -1,27 +1,13 @@
 {
-	"/": [
-		"src/routes/+layout.js",
-		"src/routes/+layout.js"
-	],
-	"/api": [
-		"src/routes/api/+server.js"
-	],
+	"/": [],
 	"/api/daily-sales": [
 		"src/routes/api/daily-sales/+server.js"
 	],
 	"/api/lubricant-products": [
 		"src/routes/api/lubricant-products/+server.js"
 	],
-	"/daily sales": [
-		"src/routes/+layout.js"
-	],
-	"/daily-sales": [
-		"src/routes/+layout.js"
-	],
-	"/lubricant-products": [
-		"src/routes/+layout.js"
-	],
-	"/shadcn-demo": [
-		"src/routes/+layout.js"
-	]
+	"/daily sales": [],
+	"/daily-sales": [],
+	"/lubricant-products": [],
+	"/shadcn-demo": []
 }

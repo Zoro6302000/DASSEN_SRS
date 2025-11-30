@@ -6,12 +6,16 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: undefined,
+			fallback: 'index.html',
 			precompress: false,
-			strict: true
+			strict: false
 		}),
 		paths: {
 			base: process.env.NODE_ENV === 'production' ? '/DASSEN_SRS' : ''
+		},
+		prerender: {
+			handleHttpError: 'warn',
+			entries: ['*']
 		}
 	}
 };

@@ -3,6 +3,9 @@
 		"src/routes/+layout.js",
 		"src/routes/+layout.js"
 	],
+	"/api": [
+		"src/routes/api/+server.js"
+	],
 	"/api/daily-sales": [
 		"src/routes/api/daily-sales/+server.js"
 	],

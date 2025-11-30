@@ -3,13 +3,16 @@
 	import * as Calendar from "./index.js";
 	import { cn } from "$lib/utils.js";
 	import { isEqualMonth } from "@internationalized/date";
+	
+	type ButtonVariant = "link" | "default" | "destructive" | "outline" | "secondary" | "ghost";
+	
 	let {
 		ref = $bindable(null),
 		value = $bindable(),
 		placeholder = $bindable(),
 		class: className,
 		weekdayFormat = "short" as "short" | "long" | "narrow",
-		buttonVariant = "ghost",
+		buttonVariant = "ghost" as ButtonVariant,
 		captionLayout = "label",
 		locale = "en-US",
 		months: monthsProp = undefined,
@@ -52,8 +55,8 @@ get along, so we shut typescript up by casting `value` to `never`.
 	{#snippet children({ months, weekdays }: { months: any; weekdays: any })}
 		<Calendar.Months class="">
 			<Calendar.Nav class="">
-				<Calendar.PrevButton variant={buttonVariant} class="">{''}</Calendar.PrevButton>
-				<Calendar.NextButton variant={buttonVariant} class="">{''}</Calendar.NextButton>
+				<Calendar.PrevButton variant={buttonVariant} class="" />
+				<Calendar.NextButton variant={buttonVariant} class="" />
 			</Calendar.Nav>
 			{#each months as month, monthIndex (month)}
 				<Calendar.Month class="">

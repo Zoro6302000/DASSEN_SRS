@@ -2,6 +2,10 @@
   import type { Snippet } from "svelte";
   import { page } from "$app/stores";
   import { ModeWatcher, mode, toggleMode } from "mode-watcher";
+  import { Calendar } from '$lib/components/ui/calendar';
+  import * as Popover from '$lib/components/ui/popover';
+  import { Button } from '$lib/components/ui/button';
+  import { DateFormatter, type DateValue, parseDate, getLocalTimeZone } from '@internationalized/date';
   import "./layout.css";
 
   interface Props {
@@ -24,6 +28,24 @@
   let isSidebarCollapsed = $state(false);
   
   let isDarkMode = $derived(mode.current === "dark");
+
+  // Calendar values
+  let startCalendarValue = $state<DateValue | undefined>(parseDate("2025-10-01"));
+  let endCalendarValue = $state<DateValue | undefined>(parseDate("2025-11-25"));
+  const df = new DateFormatter('en-US', { dateStyle: 'medium' });
+
+  // Sync calendar with date strings
+  $effect(() => {
+    if (startCalendarValue) {
+      startDate = `${startCalendarValue.year}-${String(startCalendarValue.month).padStart(2, '0')}-${String(startCalendarValue.day).padStart(2, '0')}`;
+    }
+  });
+
+  $effect(() => {
+    if (endCalendarValue) {
+      endDate = `${endCalendarValue.year}-${String(endCalendarValue.month).padStart(2, '0')}-${String(endCalendarValue.day).padStart(2, '0')}`;
+    }
+  });
 
   const formatDate = (value: string): string => {
     if (!value) return "";
@@ -57,17 +79,29 @@
       </span>
 
       <div class="flex items-center gap-2">
-        <input
-          type="date"
-          bind:value={startDate}
-          class="border rounded px-2 py-1.5 text-xs focus:outline-none focus:ring-2 {isDarkMode ? 'border-gray-700 bg-[#2a2a2a] text-white focus:ring-gray-600' : 'border-gray-300 bg-white text-gray-900 focus:ring-blue-500'}"
-        />
+        <Popover.Root>
+          <Popover.Trigger class="">
+            <Button variant="outline" class="text-xs h-8 px-2">
+              📅 {startCalendarValue ? df.format(startCalendarValue.toDate(getLocalTimeZone())) : 'Start date'}
+            </Button>
+          </Popover.Trigger>
+          <Popover.Content class="w-auto p-0" portalProps={null}>
+            <Calendar bind:value={startCalendarValue} class="" />
+          </Popover.Content>
+        </Popover.Root>
+
         <span class="{isDarkMode ? 'text-gray-400' : 'text-gray-600'}">to</span>
-        <input
-          type="date"
-          bind:value={endDate}
-          class="border rounded px-2 py-1.5 text-xs focus:outline-none focus:ring-2 {isDarkMode ? 'border-gray-700 bg-[#2a2a2a] text-white focus:ring-gray-600' : 'border-gray-300 bg-white text-gray-900 focus:ring-blue-500'}"
-        />
+
+        <Popover.Root>
+          <Popover.Trigger class="">
+            <Button variant="outline" class="text-xs h-8 px-2">
+              📅 {endCalendarValue ? df.format(endCalendarValue.toDate(getLocalTimeZone())) : 'End date'}
+            </Button>
+          </Popover.Trigger>
+          <Popover.Content class="w-auto p-0" portalProps={null}>
+            <Calendar bind:value={endCalendarValue} class="" />
+          </Popover.Content>
+        </Popover.Root>
       </div>
 
       <button
